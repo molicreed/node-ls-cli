@@ -8,7 +8,18 @@ if (argv.length == 0 ){
             return
         }
         for (let fileName of files){
-            console.log(fileName)
+            let name = fileName
+            fs.stat(fileName, (err, stats)=>{
+                if (err){
+                    console.error(err)
+                    return
+                }
+                if (stats.isDirectory()){
+                    name = name + '/'
+                }
+                console.log(name)
+            })
+            
         }
         
     })
