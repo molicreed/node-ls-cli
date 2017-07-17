@@ -7,9 +7,11 @@ if (argv.length == 0 ){
         for (let fileName of files){
             let stats = fs.statSync(fileName)
             if (stats.isDirectory()){
-                console.log(fileName+ '/')
+                process.stdout.write(fileName+ '/  ')
+                // console.log(fileName+ '/  ')
             } else if (stats.isFile()){
-                console.log(fileName)
+                process.stdout.write(fileName+ '  ')
+                // console.log(fileName + '  ')
             }
         }
     } catch (err) {
