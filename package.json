@@ -1,6 +1,6 @@
 {
   "name": "node-ls-cli",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Use Node to implement a ls command",
   "main": "app.js",
   "scripts": {
