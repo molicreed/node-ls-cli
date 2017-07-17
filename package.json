@@ -1,0 +1,23 @@
+{
+  "name": "node-ls-cli",
+  "version": "1.0.0",
+  "description": "Use Node to implement a ls command",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/molicreed/node-ls-cli.git"
+  },
+  "keywords": [
+    "ls",
+    "cli"
+  ],
+  "author": "yxlimo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/molicreed/node-ls-cli/issues"
+  },
+  "homepage": "https://github.com/molicreed/node-ls-cli#readme"
+}
