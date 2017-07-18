@@ -88,6 +88,6 @@ for (let pathString of PATH){
     } catch (err) {
         console.error(err.message)
     }
-    console.log(' ')
+    console.log('\n')
 }
 
