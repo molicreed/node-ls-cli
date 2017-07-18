@@ -46,24 +46,30 @@ if (argv.length == 0){
         }
     }
 }
+let pathLen = PATH.size
 
 for (let pathString of PATH){
-    process.stdout.write(pathString+':\n')
-    try {
-        if (fs.existsSync(pathString)){
-            //file or directory is exists
-            let stats = fs.statSync(pathString)
+    if (pathLen >= 2){
+        process.stdout.write(pathString+':\n')
+    }
+    let absolutePath = path.resolve(process.cwd(), pathString)
 
+    try {
+        if (fs.existsSync(absolutePath)){
+            //file or directory is exists
+            
+            let stats = fs.statSync(absolutePath)
             if (stats.isFile()){
+                //it is a file
                 process.stdout.write(pathString + '  ')
 
             } else if (stats.isDirectory()){
-                
-                let files = fs.readdirSync(pathString)
+                // dir Directory
+                let files = fs.readdirSync(absolutePath)
                 for (let fileName of files) {
                     if ( !isHidden(fileName)) {
 
-                        let stats = fs.statSync(fileName)
+                        let stats = fs.statSync(path.resolve(absolutePath,fileName))
 
                         if (stats.isDirectory()) {
                             process.stdout.write(fileName + '/  ')
@@ -82,6 +88,6 @@ for (let pathString of PATH){
     } catch (err) {
         console.error(err.message)
     }
-    process.stdout.write('\n')
+    console.log(' ')
 }
 
