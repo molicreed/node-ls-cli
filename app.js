@@ -10,50 +10,52 @@ const [PATH, PARAMETER] = handleArgv(argv)
 
 let pathLen = PATH.size
 
-for (let pathString of PATH){
-    if (pathLen >= 2){
-        process.stdout.write(pathString+':\n')
+for (let pathString of PATH) {
+    if (pathLen >= 2) {
+        process.stdout.write(pathString + ':\n')
     }
     let absolutePath = path.resolve(process.cwd(), pathString)
 
     try {
-        if (fs.existsSync(absolutePath)){
+        if (fs.existsSync(absolutePath)) {
             //file or directory is exists
-            
+
             let stats = fs.statSync(absolutePath)
-            if (stats.isFile()){
+            if (stats.isFile()) {
                 //it is a file
                 process.stdout.write(pathString + '  ')
 
-            } else if (stats.isDirectory()){
+            } else if (stats.isDirectory()) {
                 // dir Directory
                 let files = fs.readdirSync(absolutePath)
                 for (let fileName of files) {
-                    if ( !isHidden(fileName)) {
+                    if (!isHidden(fileName)) {
+                        try {
+                            let stats = fs.statSync(path.resolve(absolutePath, fileName))
 
-                        let stats = fs.statSync(path.resolve(absolutePath,fileName))
+                            if (stats.isDirectory()) {
+                                process.stdout.write(fileName + '/  ')
+                                // console.log(fileName+ '/  ')
+                            } else if (stats.isFile()) {
+                                process.stdout.write(fileName + '  ')
+                                // console.log(fileName + '  ')
+                            }
+                        } catch (err) {
+                            if (err.message.match('operation not permitted')) {
+                                process.stdout.write('  ')
+                            }
 
-                        if (stats.isDirectory()) {
-                            process.stdout.write(fileName + '/  ')
-                            // console.log(fileName+ '/  ')
-                        } else if (stats.isFile()) {
-                            process.stdout.write(fileName + '  ')
-                            // console.log(fileName + '  ')
                         }
-                    }
 
+                    }
                 }
+            } else {
+                throw new Error('node-ls-cli: cannot access ' + pathString + ': No such file or dircetory')
             }
-        } else {
-            throw new Error('node-ls-cli: cannot access '+ pathString + ': No such file or dircetory')
         }
     } catch (err) {
-        if (err.message.match('operation not permitted')){
-            console.error('\n')
-        } else{
-            console.error('\n',err.message)
-        }
-        
+            console.error('\n', err.message)
+
     }
     console.log('\n')
 }
