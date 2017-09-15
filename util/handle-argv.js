@@ -1,5 +1,5 @@
 let PATH = new Set()
-let PARAMETER = new Set()
+let PARAMETERS = new Set()
 
 const isParameter = require('../api/is-parameter') 
 
@@ -12,12 +12,12 @@ module.exports = argv => {
     } else {
         for (let text of argv) {
             if (isParameter(text)) {
-                PARAMETER.add(...spliteParameter(text))
+                PARAMETERS.add(...spliteParameter(text))
             } else {
                 PATH.add(text)
             }
         }
     }
-    return {PATH, PARAMETER}
+    return {PATH, PARAMETERS}
 
 }

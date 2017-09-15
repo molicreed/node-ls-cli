@@ -4,7 +4,7 @@
   "description": "Use Node to implement a ls command",
   "main": "app.js",
   "scripts": {
-    "test": "node app.js"
+    "test": "node app.js . ../ /"
   },
   "repository": {
     "type": "git",

@@ -1,4 +1,4 @@
-module.exports = (text) => {
+module.exports = text => {
     const regex = /^\-/
     if (regex.test(text)) {
         return true

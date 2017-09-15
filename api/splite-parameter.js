@@ -1,4 +1,4 @@
-module.exports = (text) => {
+module.exports = text => {
     if (text[0] == '-') {
         let paraArr = text.split('')
         paraArr.shift()
