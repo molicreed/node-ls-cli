@@ -20,18 +20,23 @@ for (let pathString of PATH) {
     try {
         if (fs.existsSync(absolutePath)) {
             //file or directory is exists
-            if (CONFIG_INFO['a']){
-                process.stdout.write('./  ../  ')
-            }
-            let stats = fs.statSync(absolutePath)
+            
             let fileInfo = new FileInfo({ absolutePath })
             if (!fileInfo.isDir) {
-                file.print()
+                // file
+                process.stdout.write(pathString + '  ')
+                // fileInfo.print(true)
             } else {
+                //directory
+                if (CONFIG_INFO['a']){
+                    process.stdout.write('./  ../  ')
+                }
                 for (let file of fileInfo.traverse()) {
                     file.print()
                 }
             }
+        } else {
+            console.error(`ls: ${pathString}: No such file or directory`)
         }
     } catch (err) {
         console.error('\n', err.message)
