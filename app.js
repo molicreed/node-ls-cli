@@ -7,6 +7,7 @@ const FileInfo = require('./lib/file-info')
 const [, , ...argv] = process.argv
 
 const { PATH, PARAMETERS } = handleArgv(argv)
+// console.log(PATH,PARAMETERS)
 const CONFIG_INFO = require('./lib/config')(PARAMETERS)
 FileInfo.prototype.config = CONFIG_INFO
 
@@ -28,12 +29,17 @@ for (let pathString of PATH) {
                 // fileInfo.print(true)
             } else {
                 //directory
-                if (CONFIG_INFO['a']){
-                    process.stdout.write('./  ../  ')
+                if (CONFIG_INFO['d']){
+                    process.stdout.write(pathString + '  ')
+                } else {
+                    if (CONFIG_INFO['a']){
+                        process.stdout.write('./  ../  ')
+                    }
+                    for (let file of fileInfo.traverse()) {
+                        file.print()
+                    }
                 }
-                for (let file of fileInfo.traverse()) {
-                    file.print()
-                }
+                
             }
         } else {
             console.error(`ls: ${pathString}: No such file or directory`)
