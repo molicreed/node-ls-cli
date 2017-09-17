@@ -4,6 +4,8 @@ const path = require('path')
 
 const handleArgv = require('./util/handle-argv')
 const FileInfo = require('./lib/file-info')
+const printFile = require('/api/print')
+
 const [, , ...argv] = process.argv
 
 const { PATH, PARAMETERS } = handleArgv(argv)
@@ -21,25 +23,22 @@ for (let pathString of PATH) {
     try {
         if (fs.existsSync(absolutePath)) {
             //file or directory is exists
-            
+
             let fileInfo = new FileInfo({ absolutePath })
-            if (!fileInfo.isDir) {
+            if (!fileInfo.isDir || CONFIG_INFO.listDirAsPlainFiles) {
                 // file
-                process.stdout.write(pathString + '  ')
-                // fileInfo.print(true)
+                fileInfo.print(true)
+
             } else {
                 //directory
-                if (CONFIG_INFO['d']){
-                    process.stdout.write(pathString + '  ')
-                } else {
-                    if (CONFIG_INFO['a']){
-                        process.stdout.write('./  ../  ')
-                    }
-                    for (let file of fileInfo.traverse()) {
-                        file.print()
-                    }
+                if (CONFIG_INFO.showCurrentAndParentDir) {
+                    printFile('.', true)
+                    printFile('..', true)
                 }
-                
+                for (let file of fileInfo.traverse()) {
+                    file.print()
+                }
+
             }
         } else {
             console.error(`ls: ${pathString}: No such file or directory`)
