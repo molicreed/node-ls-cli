@@ -10,7 +10,10 @@ module.exports = argv => {
 
     for (let text of argv) {
         if (isParameter(text)) {
-            PARAMETERS.add(...spliteParameter(text))
+            spliteParameter(text).forEach(
+                para=>PARAMETERS.add(para)
+            )
+            
         } else {
             PATH.add(text)
         }
