@@ -4,15 +4,22 @@ const path = require('path')
 
 const handleArgv = require('./util/handle-argv')
 const FileInfo = require('./lib/file-info')
-const printFile = require('/api/print')
+
+
 
 const [, , ...argv] = process.argv
 
 const { PATH, PARAMETERS } = handleArgv(argv)
 // console.log(PATH,PARAMETERS)
-const CONFIG_INFO = require('./lib/config')(PARAMETERS)
-FileInfo.prototype.config = CONFIG_INFO
+const CONFIG_INFO = require('./lib/output-config')(PARAMETERS)
 
+const printDir = name => require('./api/print')(name, {
+    isDir: true,
+    ...CONFIG_INFO
+})
+
+FileInfo.prototype.config = CONFIG_INFO
+console.log(fs.constants)
 let pathLen = PATH.size
 
 for (let pathString of PATH) {
@@ -32,8 +39,8 @@ for (let pathString of PATH) {
             } else {
                 //directory
                 if (CONFIG_INFO.showCurrentAndParentDir) {
-                    printFile('.', true)
-                    printFile('..', true)
+                    printDir('.')
+                    printDir('..')
                 }
                 for (let file of fileInfo.traverse()) {
                     file.print()

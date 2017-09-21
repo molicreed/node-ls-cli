@@ -1,8 +1,7 @@
-const config = require('../lib/config.js')
 
-module.exports = (name, isDir = false) =>{
+module.exports = (name, config) =>{
   process.stdout.write(name)
-  if (isDir) process.stdout.write('/')
+  if (config.isDir) process.stdout.write('/')
   process.stdout.write('  ')
   if (config.entryPerLine) {
     process.stdout.write('\n')

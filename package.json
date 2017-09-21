@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/molicreed/node-ls-cli/issues"
   },
-  "homepage": "https://github.com/molicreed/node-ls-cli#readme"
+  "homepage": "https://github.com/molicreed/node-ls-cli#readme",
+  "dependencies": {
+    "stat-mode": "^0.2.2"
+  }
 }
