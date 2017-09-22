@@ -47,9 +47,8 @@ for (let pathString of PATH) {
                         file.print(true)
                     })
                 }
-                for (let file of fileInfo.traverse()) {
-                    file.print()
-                }
+                
+                fileInfo.traverse().forEach(file=>file.print())
 
             }
         } else {
